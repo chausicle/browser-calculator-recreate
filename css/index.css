@@ -12,8 +12,8 @@ span {
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  padding: 10px 0;
-  width: 28em;
+  padding: 35px 0;
+  width: 29em;
 }
 
 .screen-container {
@@ -23,6 +23,7 @@ span {
 
 .screen {
   color: white;
+  font-family: sans-serif;
   font-size: 80px;
   margin: 0 2.5%
 }
@@ -39,11 +40,12 @@ span {
 .button {
   background: grey;
   border-radius: 50%;
+  box-sizing: border-box;
   color: white;
   font-size: 45px;
-  height: 66px;
-  margin: 2px;
-  padding-top: 12px;
+  height: 80px;
+  margin: 4px;
+  padding-top: 10px;
   width: 80px;
 }
 
@@ -55,11 +57,11 @@ span {
   background: #f1f1f1;
   border-radius: 100px;
   color: black;
-  width: 255px;
+  width: 264px;
 }
 
 
 .zero {
   border-radius: 100px;
-  width: 170px;
+  width: 176px;
 }

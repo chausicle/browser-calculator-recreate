@@ -3,6 +3,9 @@ body {
   width: 100%;
 }
 
+span {
+  font-family: sans-serif;
+}
 
 .calculator {
   background: black;
@@ -21,6 +24,7 @@ body {
 .screen {
   color: white;
   font-size: 80px;
+  margin: 0 2.5%
 }
 
 .buttons-container {
@@ -51,11 +55,11 @@ body {
   background: #f1f1f1;
   border-radius: 100px;
   color: black;
-  width: 71%;
+  width: 255px;
 }
 
 
 .zero {
   border-radius: 100px;
-  width: 48%;
+  width: 170px;
 }

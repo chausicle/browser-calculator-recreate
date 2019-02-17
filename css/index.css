@@ -3,14 +3,14 @@ body {
   width: 100%;
 }
 
+
 .calculator {
   background: black;
   border-radius: 10px;
-  justify-content: center;
   margin-left: auto;
   margin-right: auto;
   padding: 10px 0;
-  width: 25em;
+  width: 28em;
 }
 
 .screen-container {
@@ -29,12 +29,33 @@ body {
 }
 
 .buttons span {
+  display: inline-block;
+}
+
+.button {
   background: grey;
   border-radius: 50%;
   color: white;
-  display: inline-block;
   font-size: 45px;
-  height: 55px;
-  text-align: center;
-  width: 55px;
+  height: 66px;
+  margin: 2px;
+  padding-top: 12px;
+  width: 80px;
+}
+
+.operator {
+  background: orange;
+}
+
+.clear {
+  background: #f1f1f1;
+  border-radius: 100px;
+  color: black;
+  width: 71%;
+}
+
+
+.zero {
+  border-radius: 100px;
+  width: 48%;
 }

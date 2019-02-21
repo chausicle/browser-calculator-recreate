@@ -39,7 +39,7 @@ span {
 }
 
 .button {
-  background: grey;
+  background: #808080;
   border-radius: 50%;
   box-sizing: border-box;
   color: white;
@@ -50,18 +50,29 @@ span {
   width: 80px;
 }
 
+.number:active,
+.decimal:active {
+  background: #aaaaaa;
+}
+
 .operator {
-  background: orange;
+  background: #ffa500;
+}
+
+.operator:active {
+  background: #fec358;
 }
 
 .clear {
-  background: #f1f1f1;
+  background: #d9d7d7;
   border-radius: 100px;
   color: black;
   width: 264px;
 }
 
-
+.clear:active {
+  background: #eeeded;
+}
 .zero {
   border-radius: 100px;
   width: 176px;

@@ -34,20 +34,21 @@ span {
   text-align: center;
 }
 
-.buttons span {
-  display: inline-block;
-}
-
 .button {
-  background: #808080;
   border-radius: 50%;
   box-sizing: border-box;
-  color: white;
+  display: inline-block;
   font-size: 45px;
   height: 80px;
   margin: 4px;
   padding-top: 10px;
   width: 80px;
+}
+
+.number,
+.decimal {
+  background: #808080;
+  color: white;
 }
 
 .number:active,
@@ -57,6 +58,7 @@ span {
 
 .operator {
   background: #ffa500;
+  color: white;
 }
 
 .operator:active {
@@ -73,6 +75,7 @@ span {
 .clear:active {
   background: #eeeded;
 }
+
 .zero {
   border-radius: 100px;
   width: 176px;

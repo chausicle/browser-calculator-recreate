@@ -51,7 +51,6 @@ function startCalculator() {
     }
     // calculate when button pressed has a class of 'equals'
     else if(targetClasses[2] === 'equals') {
-      console.log('operators', operators);
       if(operatorPressed) {
         numArray[1] = Number(screen.innerText);
       } else {
@@ -63,10 +62,6 @@ function startCalculator() {
       screen.innerText = result;
       operatorPressed = false;
     }
-
-    console.log('operators', operators);
-    console.log('target', target);
-    console.log('targetClasses', targetClasses);
   });
 }
 

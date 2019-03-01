@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function startCalculator() {
   let screen = document.querySelector('.screen');
+  let numArray = [0, 0];
   let decimalPressed = false; // to determine the first decimal pressed to prevent multiple decimals appended on a single number
+  let operatorPressed = false;
+  let selectedOperator;
 
   document.addEventListener('click', function(event) {
     let target = event.target;
@@ -20,7 +23,7 @@ function startCalculator() {
     }
     else if(targetClasses[1] === 'number' || targetClasses[1] === 'decimal') {
       // if the screen's inner-text is '0' and the button pressed is a number then clear screen to allow number to append without a leading '0'
-      if(screen.innerText === '0' && targetClasses[1] === 'number') {
+      if(screen.innerText === '0' && targetClasses[1] === 'number' || operatorPressed) {
         screen.innerText = '';
       }
       if((targetClasses[1] === 'decimal' && !decimalPressed) || (targetClasses[1] === 'number' && screen.innerText !== '0')) {
@@ -29,16 +32,36 @@ function startCalculator() {
     }
     // highlight selected operator to indicate an operation is being done with that operator
     else if(targetClasses[1] === 'operator' && targetClasses[2] !== 'clear' && targetClasses[2] !== 'equals') {
+      operatorPressed = true;
       resetOperators(operators);
 
       target.style.background = 'white';
       target.style.color = '#ffa500';
+
+      numArray[0] = Number(screen.innerText);
+      selectedOperator = targetClasses[2];
     }
     // clear screen if the button pressed has a class of 'clear'
     else if(targetClasses[2] === 'clear') {
       resetOperators(operators);
       decimalPressed = false;
+      operatorPressed = false;
+      selectedOperator = null;
       screen.innerText = 0;
+    }
+    // calculate when button pressed has a class of 'equals'
+    else if(targetClasses[2] === 'equals') {
+      console.log('operators', operators);
+      if(operatorPressed) {
+        numArray[1] = Number(screen.innerText);
+      } else {
+        numArray[0] = Number(screen.innerText);
+      }
+
+      let result = calculate(numArray, selectedOperator);
+      resetOperators(operators);
+      screen.innerText = result;
+      operatorPressed = false;
     }
 
     console.log('operators', operators);

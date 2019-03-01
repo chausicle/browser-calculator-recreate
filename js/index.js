@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function startCalculator() {
   let screen = document.querySelector('.screen');
-  let decimalPressed = false; //
+  let decimalPressed = false; // to determine the first decimal pressed to prevent multiple decimals appended on a single number
 
   document.addEventListener('click', function(event) {
     let target = event.target;
@@ -12,21 +12,18 @@ function startCalculator() {
     let htmlOperators = document.querySelectorAll('.operator');
     let operators = Array.from(htmlOperators);
     operators = operators.slice(1, operators.length - 1);
-    let firstNumPressed = false; // counter for first number on screen to determine whether to clear screen when
 
+    // append only one decimal per screen session
     if(targetClasses[1] === 'decimal' && !decimalPressed) {
       decimalPressed = true;
       screen.innerText += target.innerText;
     }
-    if(targetClasses[1] === 'number' || targetClasses[1] === 'decimal') {
-      firstNumPressed = true;
-      // if the firstNumPressed is 1 and the screen's inner text is '0' then clear screen to allow number appending without a leading '0'
-      if(firstNumPressed && screen.innerText === '0' && targetClasses[2] !== 'zero' && targetClasses[1] !== 'decimal') {
+    else if(targetClasses[1] === 'number' || targetClasses[1] === 'decimal') {
+      // if the screen's inner-text is '0' and the button pressed is a number then clear screen to allow number to append without a leading '0'
+      if(screen.innerText === '0' && targetClasses[1] === 'number') {
         screen.innerText = '';
       }
-      if(targetClasses[1] === 'decimal' && !decimalPressed) {
-        screen.innerText += target.innerText;
-      } else if(targetClasses[1] === 'number') {
+      if((targetClasses[1] === 'decimal' && !decimalPressed) || (targetClasses[1] === 'number' && screen.innerText !== '0')) {
         screen.innerText += target.innerText;
       }
     }
@@ -40,16 +37,13 @@ function startCalculator() {
     // clear screen if the button pressed has a class of 'clear'
     else if(targetClasses[2] === 'clear') {
       resetOperators(operators);
-      firstNumPressed = false;
       decimalPressed = false;
       screen.innerText = 0;
     }
-    
+
     console.log('operators', operators);
-    console.log('decimalPressed', decimalPressed);
     console.log('target', target);
     console.log('targetClasses', targetClasses);
-    console.log(firstNumCounter);
   });
 }
 

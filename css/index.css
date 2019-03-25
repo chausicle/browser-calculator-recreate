@@ -47,7 +47,7 @@ span {
 
 .number,
 .decimal {
-  background: #808080;
+  background: #4e4d4d;
   color: white;
 }
 
@@ -56,10 +56,13 @@ span {
   background: #aaaaaa;
 }
 
+
 .operator {
   background: #ffa500;
   color: white;
+  transition: 0.5s;
 }
+
 
 .operator:active {
   background: #fec358;
@@ -79,4 +82,16 @@ span {
 .zero {
   border-radius: 100px;
   width: 167px;
+}
+
+.number:not(:active),
+.decimal:not(:active),
+.clear:not(:active),
+.equals:not(:active) {
+  transition: 0.5s;
+}
+
+.clear,
+.equals {
+  transition: 0s;
 }

@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function startCalculator() {
   let screen = document.querySelector(".screen");
-  let numArray = [NaN, NaN];
-  let decimalPressed = false; // to determine the first decimal pressed to prevent multiple decimals appended on a single number
+  let numArray = [];
+  let decimalPressed = false;
   let operatorPressed = false;
-  let calculated = false;
+  let equalPressed = false;
   let selectedOperator;
 
   document.addEventListener("click", function(event) {
@@ -17,28 +17,29 @@ function startCalculator() {
     let operators = Array.from(htmlOperators);
     operators = operators.slice(1, operators.length - 1);
 
-    console.log("target", target);
-
     if (screen.innerText !== "Error") {
       // append only one decimal per screen session
       if (targetClasses[1] === "decimal" && !decimalPressed) {
         decimalPressed = true;
-        if (calculated || operatorPressed) {
+        if (equalPressed || operatorPressed) {
           screen.innerText = `0${target.innerText}`;
-          calculated = false;
+          equalPressed = false;
+          operatorPressed = false;
         } else {
           screen.innerText += target.innerText;
         }
       } else if (targetClasses[1] === "number") {
-        // if the screen's inner-text is '0' and the button pressed is a number then clear screen to allow number to append without a leading '0'
+        // clear screen to allow number to append:
+        //    without a leading '0'
+        //    when calculation has occured when the equal button is pressed
+        //    when an operator is pressed
         if (
           (screen.innerText === "0" && targetClasses[1] === "number") ||
-          calculated ||
+          equalPressed ||
           operatorPressed
         ) {
-          console.log("clearing screen");
           screen.innerText = "";
-          calculated = false;
+          equalPressed = false;
           operatorPressed = false;
           resetOperators(operators);
         }
@@ -51,42 +52,53 @@ function startCalculator() {
         targetClasses[2] !== "clear" &&
         targetClasses[2] !== "equals"
       ) {
-        calculated = false;
-        operatorPressed = true;
         decimalPressed = false;
         resetOperators(operators);
 
         target.style.background = "white";
         target.style.color = "#ffa500";
 
-        numArray[0] = Number(screen.innerText);
+        if (equalPressed) {
+          numArray = [Number(screen.innerText)];
+          operatorPressed = true;
+          equalPressed = false;
+        } else if (!operatorPressed) {
+          numArray.push(Number(screen.innerText));
+          operatorPressed = true;
+        }
+
+        // for continuous flow of calculations with the use of operators instead of pressing the equal button
+        if (numArray.length === 2) {
+          const result = calculate(numArray, selectedOperator);
+          numArray = [result];
+          screen.innerText = result;
+        }
         selectedOperator = targetClasses[2];
       }
       // calculate when button pressed has a class of 'equals'
       else if (targetClasses[2] === "equals") {
-        if (calculated) {
+        if (equalPressed) {
           numArray[0] = Number(screen.innerText);
         } else {
           numArray[1] = Number(screen.innerText);
         }
 
         if (selectedOperator !== undefined) {
-          console.log("numArray", numArray);
-          let result = calculate(numArray, selectedOperator);
+          const result = calculate(numArray, selectedOperator);
           resetOperators(operators);
           screen.innerText = result;
           operatorPressed = false;
-          calculated = true;
+          equalPressed = true;
         }
       }
     }
     // clear screen if the button pressed has a class of 'clear'
     if (targetClasses[2] === "clear") {
       resetOperators(operators);
-      numArray = [NaN, NaN];
+      numArray = [];
       decimalPressed = false;
       operatorPressed = false;
-      calculated = false;
+      equalPressed = false;
       selectedOperator = null;
       screen.innerText = 0;
     }
